@@ -796,6 +796,10 @@ func buildCommand(targetOS string, vmArguments []string, outputBinaryPath string
 		"-o", outputBinaryPath,
 		"-v",
 	}
+	if buildmode := os.Getenv("HOVER_BUILDMODE"); buildmode != "" {
+		outputCommand = append(outputCommand, "-buildmode="+buildmode)
+	}
+
 	outputCommand = append(outputCommand, fmt.Sprintf("-ldflags=%s", strings.Join(ldflags, " ")))
 	outputCommand = append(outputCommand, dotSlash+"cmd")
 	return outputCommand
